@@ -143,6 +143,11 @@ void Lddc::PollingLidarPointCloudData(uint8_t index, LidarDevice *lidar) {
     return;
   }
 
+  DRIVER_INFO(*cur_node_,
+    "index %d, publish msg lidar ip:[%d.%d.%d.%d]", index, 
+    lidar->info.ip[0],  lidar->info.ip[1],
+     lidar->info.ip[2], lidar->info.ip[3]);
+
   while (!QueueIsEmpty(p_queue)) {
     if (kPointCloud2Msg == transfer_format_) {
       PublishPointcloud2(p_queue, index);

@@ -428,6 +428,11 @@ void DeviceManager::OnData(socket_t sock, void *client_data) {
   uint32_t handle = ((struct sockaddr_in *)&addr)->sin_addr.s_addr;
   uint16_t port = ntohs(((struct sockaddr_in *)&addr)->sin_port);
 
+  uint8_t *last = ((uint8_t *)&handle + 3);
+  uint8_t *all_buf = (uint8_t*)(buf.get());
+  // memcpy(all_buf + 13, last, 8);
+  all_buf[13] = *last;
+
   struct in_addr log_addr;
   log_addr.s_addr = handle;
   std::string lidar_ip = inet_ntoa(log_addr);
